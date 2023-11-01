@@ -42,6 +42,8 @@ let array_saldo_a_cobrar = [];
 let txt_a_cobrar = '';
 let des_moneda = '';
 
+var toast = new Toasty();
+
 //Funcion para evaluar si el cliente
 //ingreso un valor que supera el minimo
 function supera_monto(monto_eval, moneda_eval) {
@@ -88,8 +90,6 @@ function obtengo_tasa() {
                 tasa = pf_dolar.tasa_do_90;
         }
     }
-    console.log('Función obtengo_tasa');
-    console.log('El PF tendra tasa = ' + tasa);
 }
 
 //Función que calcula los resultados
@@ -183,9 +183,6 @@ function monedaClick() {
     let opt_moneda = cbo_moneda.options[ind_moneda];
     des_moneda = opt_moneda.text;
     moneda = parseInt(cbo_moneda.value);
-    console.log('Selección de moneda');
-    console.log('El usuario eligió moneda = ' + cbo_moneda.value);
-    console.log('El usuario eligió moneda = ' + des_moneda);
 }
 
 function montoClick() {
@@ -194,30 +191,28 @@ function montoClick() {
     monto = parseFloat(txt_monto.value);
     if (txt_monto.value == '') {
         //El usuario presiono aceptar sin ingresar un valor
-        alert('¡Ingrese un monto!');
+        toast.error('¡Ingrese un monto!');
         txt_monto.value = "";
         txt_monto.focus();
     } else if (Number.isNaN(monto)) {
-        alert('¡El valor ingresado no es un monto!');
+        toast.error('¡El valor ingresado no es un monto!');
         txt_monto.value = "";
         txt_monto.focus();
     } else if (monto == 0) {
-        alert('¡El monto ingresado no puede ser igual a cero!');
+        toast.error('¡El monto ingresado no puede ser igual a cero!');
         txt_monto.value = "";
         txt_monto.focus();
     } else if (monto < 0) {
-        alert('¡El monto ingresado es negativo!');
+        toast.error('¡El monto ingresado es negativo!');
         txt_monto.value = "";
         txt_monto.focus();
     } else if (supera_monto(monto, moneda) == false) {
-        alert('¡El monto ingresado no supera al mínimo!');
+        toast.error('¡El monto ingresado no supera al mínimo!');
         txt_monto.value = "";
         txt_monto.focus();
     } else {
         continuar = true;
     }
-    console.log('Ingreso de monto');
-    console.log('El usuario ingresó monto = ' + monto);
 }
 
 function plazoClick() {
@@ -227,31 +222,29 @@ function plazoClick() {
         plazo = parseInt(txt_plazo.value);
         if (plazo == 0) {
             //El usuario puso plazo
-            alert('¡El plazo ingresado no puede ser igual a cero!');
+            toast.error('¡El plazo ingresado no puede ser igual a cero!');
             txt_plazo.value = "";
             txt_plazo.focus();
         } else if (txt_plazo.value == '') {
             //El usuario presiono aceptar sin ingresar un plazo
-            alert('¡Ingrese un plazo!');
+            toast.error('¡Ingrese un plazo!');
             txt_plazo.value = "";
             txt_plazo.focus();
         } else if (Number.isNaN(plazo)) {
-            alert('¡El valor ingresado no es un plazo!');
+            toast.error('¡El valor ingresado no es un plazo!');
             txt_plazo.value = "";
             txt_plazo.focus();
         } else if (plazo < 0) {
-            alert('¡El plazo ingresado es negativo!');
+            toast.error('¡El plazo ingresado es negativo!');
             txt_plazo.value = "";
             txt_plazo.focus();
         } else if (plazo < plazo_minimo) {
-            alert('¡El plazo ingresado no supera al mínimo de ' + plazo_minimo + ' días!');
+            toast.error('¡El plazo ingresado no supera al mínimo de ' + plazo_minimo + ' días!');
             txt_plazo.value = "";
             txt_plazo.focus();
         } else {
             continuar = true;
         }
-        console.log('Ingreso de plazo');
-        console.log('El usuario ingresó plazo = ' + plazo);
     }
 }
 
@@ -262,26 +255,24 @@ function reinvertirClick() {
         reinvertir = parseInt(txt_reinvertir.value);
         if (txt_reinvertir.value == '') {
             //El usuario presiono aceptar sin ingresar un plazo
-            alert('¡Ingrese un número de reiversiones!');
+            toast.error('¡Ingrese un número de reiversiones!');
             txt_reinvertir.value = "";
             txt_reinvertir.focus();
         } else if (Number.isNaN(reinvertir)) {
-            alert('¡El valor ingresado no es un plazo de reinversión!');
+            toast.error('¡El valor ingresado no es un plazo de reinversión!');
             txt_reinvertir.value = "";
             txt_reinvertir.focus();
         } else if (reinvertir < 0) {
-            alert('¡El valor ingresado es negativo!');
+            toast.error('¡El valor ingresado es negativo!');
             txt_reinvertir.value = "";
             txt_reinvertir.focus();
         } else if (reinvertir > 3) {
-            alert('¡La cantidad de reinversiones supera el límite máximo de 3!');
+            toast.error('¡La cantidad de reinversiones supera el límite máximo de 3!');
             txt_reinvertir.value = "";
             txt_reinvertir.focus();
         } else {
             continuar = true;
         }
-        console.log('Ingreso de plazo de reinversión');
-        console.log('El usuario ingresó reinvertir = ' + reinvertir);
     }
 }
 
